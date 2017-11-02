@@ -1,0 +1,35 @@
+{% extends 'common/base.html' %}
+
+{% from 'common/macro.html' import pagination_show %}
+{% block title %}V电影首页{% endblock %}
+
+{% block page_content %}
+    <h2 style="margin: 30px auto;">电影列表</h2>
+    {#  展示电影列表  #}
+    {% for movie in movies %}
+    <div class="media">
+        <div class="media-left media-middle">
+            <a href="http://app.vmoiver.com/{{ movie.postid }}?qingapp=app_new">
+                <img class="media-object" src="{{ movie.image }}"
+                     width='200px' height="130px" alt="...">
+            </a>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">
+                <a href="http://app.vmoiver.com/{{ movie.postid }}?qingapp=app_new">{{ movie.title }}</a>
+            </h4>
+            <div style="float:right;">
+                <a class="btn btn-default" href="{{ url_for('main.addmovie', postid=movie.postid) }}" role="button">收藏</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="row" style="margin: 50px auto">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            {{ pagination_show(pagination, 'main.index') }}
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+{% endblock %}
